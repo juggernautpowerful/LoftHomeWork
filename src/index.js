@@ -1,121 +1,247 @@
 /* eslint-disable no-unused-vars */
-/* ДЗ 1 - Функции */
+/* ДЗ 2 - работа с массивами и объектами */
 
 /*
  Задание 1:
 
- 1.1: Добавьте к функции параметр с любым именем
- 1.2: Функция должна возвращать аргумент, переданный ей в качестве параметра
-
- Пример:
-   returnFirstArgument(10) вернет 10
-   returnFirstArgument('привет') вернет `привет`
-
- Другими словами: функция должна возвращать в неизменном виде то, что поступает ей на вход
+ Напишите аналог встроенного метода forEach для работы с массивами
+ Посмотрите как работает forEach и повторите это поведение для массива, который будет передан в параметре array
  */
-function returnFirstArgument(param) {
-    return param;
-}
 
-/*
- Задание 2:
+function forEach(array, fn) {
+    let index, len;
 
- 2.1: Функция должна возвращать сумму переданных аргументов
-
- Пример:
-   sumWithDefaults(10, 20) вернет 30
-   sumWithDefaults(2, 4) вернет 6
-
- 2.1 *: Значение по умолчанию для второго аргумента должно быть равно 100
-
- Пример:
-   sumWithDefaults(10) вернет 110
- */
-// function sumWithDefaults(a, b) {
-//     return a + b;
-// }
-
-// 2.1*
-function sumWithDefaults(a = 0, b = 100) {
-    return a + b;
-}
-/*
- Задание 3:
-
- Функция должна принимать другую функцию и возвращать результат вызова этой функции
-
- Пример:
-   returnFnResult(() => 'привет') вернет 'привет'
- */
-function returnFnResult(fn) {
-    return fn();
-}
-
-// function otherFunc() {
-//     return 'Hello World';
-// }
-
-/*
- Задание 4:
-
- Функция должна принимать число и возвращать новую функцию (F)
- При вызове функции F, переданное ранее число должно быть увеличено на единицу и возвращено из F
-
- Пример:
-   var f = returnCounter(10);
-
-   console.log(f()); // выведет 11
-   console.log(f()); // выведет 12
-   console.log(f()); // выведет 13
- */
-function returnCounter(number = 0) {
-    return function F() {
-        return ++number;
+    for (index = 0, len = array.length; index < len; ++index) {
+        fn(array[index], index, array);
     }
 }
+
+// let sum = 0;
+
+// function sumNumberEach( item, i, arr ) {
+//     sum += item;
+// }
+// let arrayEach = [10, 20, 30];
+// let selfArrayEach = [10, 20, 30];
+
+// arrayEach.forEach( (currentValue, i, ar) => sum += currentValue );
+// forEach(selfArrayEach, sumNumberEach)
+// console.log( sum );
+// console.log( sum );
+
 /*
- Задание 5 *:
+Задание 2:
 
- Функция должна возвращать все переданные ей аргументы в виде массива
- Количество переданных аргументов заранее неизвестно
+Напишите аналог встроенного метода map для работы с массивами
+Посмотрите как работает map и повторите это поведение для массива, который будет передан в параметре array
+*/
 
- Пример:
-   returnArgumentsArray(1, 2, 3) вернет [1, 2, 3]
- */
-function returnArgumentsArray(...args) {
-    return args;
+function map(array, fn) {
+    let index, len, arr;
+
+    arr = [];
+    for (index = 0, len = array.length; index < len; index++) {
+        arr[index] = fn(array[index], index, array);
+    }
+    
+    return arr;
 }
 
+// function doubleNumberMap( item, i, arr ) {
+//     return item * 2;
+// }
+// let arrayMap = [10, 20, 30];
+// let doubleMap = array.map( currentValue => currentValue * 2 );
+// let selfDoubleMap = map(arrayMap, doubleNumberMap)
+// console.log( doubleMap );
+// console.log( selfDoubleMap );
 /*
- Задание 6 *:
+Задание 3:
 
- Функция должна принимать другую функцию (F) и некоторое количество дополнительных аргументов
- Функция должна привязать переданные аргументы к функции F и вернуть получившуюся функцию
+Напишите аналог встроенного метода reduce для работы с массивами
+Посмотрите как работает reduce и повторите это поведение для массива, который будет передан в параметре array
+*/
+function reduce(array, fn, initial) {
+    let total, currentValue, currentIndex, callbackResult, isInitial;
+    let index, len;
 
- Пример:
-   function sum(a, b) {
-     return a + b;
-   }
+    isInitial = initial !== undefined;
+    for (index = 0, len = array.length; index < (isInitial? len : len - 1); index++) {
+        if (index == 0) {
+            total = isInitial? initial : array[index];
+            currentValue = isInitial? array[index] : array[index + 1];
+            currentIndex = isInitial? 0 : 1;
 
-   var newSum = bindFunction(sum, 2, 4);
+            callbackResult = fn(total, currentValue, currentIndex, array);
+        } else {
+            callbackResult = isInitial? fn(callbackResult, array[index], index, array) 
+                : fn( callbackResult, array[index + 1], index + 1, array);
+        } 
+    }
 
-   console.log(newSum()) выведет 6
- */
-function bindFunction(fn, ...args) {
-    return () => fn(...args);
+    return callbackResult;
 }
 
-// function sum(a, b = 0, c = 0) {
-//     return a + b + c;
+// let callbackReduce = ( total, currentValue, currentIndex, arr ) => { 
+//     // console.log( total, currentValue, currentIndex, arr ); // значения параметров функции
+//     return total + currentValue; // возвращаем значение, полученное от суммы первого параметра со вторым
 // }
 
-// var newSum = bindFunction(sum, 2, 4);
+// let arrayReduce = [11,12,13,14,15];
+// let result = arrayReduce.reduce(callbackReduce); // метод только с callback функцией
+// console.log(result);
+// let resultWithInitialValue = arrayReduce.reduce( callbackReduce, 35 ); // метод с callback функцией и первоначальным значением
+// console.log( resultWithInitialValue );
+
+// let selfResult = reduce(arrayReduce, callbackReduce); // метод только с callback функцией
+// console.log(selfResult);
+// let SelfResultWithInitialValue = reduce( arrayReduce, callbackReduce, 35 ); // метод с callback функцией и первоначальным значением
+// console.log( SelfResultWithInitialValue );
+
+/*
+Задание 4:
+
+Функция должна перебрать все свойства объекта, преобразовать их имена в верхний регистр и вернуть в виде массива
+
+Пример:
+ upperProps({ name: 'Сергей', lastName: 'Петров' }) вернет ['NAME', 'LASTNAME']
+*/
+function upperProps(obj) {
+    let arr = [];
+    
+    for (let prop in obj) {
+        if (Object.prototype.hasOwnProperty.call(obj, prop)) {
+            arr.push(prop.toString().toUpperCase())
+        }
+    }
+    
+    return arr;
+}
+
+// var menu = {
+//     width: 300,
+//     height: 200,
+//     title: "Menu"
+//   };
+// let resultUpperProps  = upperProps(menu);
+// console.log(resultUpperProps);
+/*
+Задание 5 *:
+
+Напишите аналог встроенного метода slice для работы с массивами
+Посмотрите как работает slice и повторите это поведение для массива, который будет передан в параметре array
+*/
+function slice(array, from = 0, to = array.length) {
+    let _from, _to, arr;
+    let index, len;
+
+    arr = [];
+
+    if (array.length < 1) {
+        // console.error('Входной массив пуст');
+        return [];
+    }
+
+    _from = from >= 0? (from) : (_from = (array.length + from) < 0? 0 : array.length + from);
+    _to = to >=0? (to = to > array.length? array.length : to) : (array.length + to);
+
+    if (_from > array.length) {
+        // console.log('Размер 2-го параметрa  (`from`) превышает длину массива');
+        return [];
+    }
+
+    if (_from > _to) {
+        // console.error('3-ий параметр  (`to`) не должен находиться в массиве раньше второго');
+        return [];
+    }
+
+    for (index = _from, len = _to; index < len; index++) {
+        arr.push(array[index]);
+    }
+
+    return arr;
+}
+
+// let x = [1, 2, 3, 'a', 'b', 'c'];
+// let a, b, c, d, e, m, n, p;
+
+// a = x.slice(); // значение переменной [1,2,3,a,b,c]
+// b = x.slice(3, 4); // значение переменной ["a"]
+// c = x.slice(2, 5); // значение переменной [3, "a", "b"]
+// d = x.slice(-4, 5); // значение переменной [3, "a", "b"]
+// e = x.slice(-4, -1); // значение переменной [3, "a", "b"]
+// m = x.slice(-1000, 10);
+// n = x.slice(-2);
+// p = x.slice(15);
+// console.log(a);
+// console.log(b);
+// console.log(c);
+// console.log(d);
+// console.log(e);
+
+// let f = "hello"; 
+// let g = [f]; 
+// let h = g.slice(); 
+// console.log(f);
+// console.log(g);
+// console.log(h);
+// console.log(m);
+// console.log(n);
+// console.log(p);
+
+// let aa, bb, cc, dd, ee, mm, nn, pp;
+
+// aa = slice(x); // значение переменной [1,2,3,a,b,c]
+// bb = slice(x, 3, 4); // значение переменной ["a"]
+// cc = slice(x, 2, 5); // значение переменной [3, "a", "b"]
+// dd = slice(x, -4, 5); // значение переменной [3, "a", "b"]
+// ee = slice(x, -4, -1); // значение переменной [3, "a", "b"]
+// console.log(aa);
+// console.log(bb);
+// console.log(cc);
+// console.log(dd);
+// console.log(ee);
+// let ff = "yes"; 
+// let gg = [ff]; 
+// let hh = slice(gg); 
+// console.log(ff);
+// console.log(gg);
+// console.log(hh);
+// mm = slice(x, -1000, 10);
+// nn = slice(x, '-2h');
+// pp = slice(x, 5, 3);
+// console.log(mm);
+// console.log(nn);
+// console.log(pp);
+/*
+Задание 6 *:
+
+Функция принимает объект и должна вернуть Proxy для этого объекта
+Proxy должен перехватывать все попытки записи значений свойств и возводить это значение в квадрат
+*/
+function createProxy(obj) {
+    return new Proxy(obj||{}, handler);
+}
+
+let handler = {
+    set: (target, prop, value) =>{
+        target[prop] = value * value;
+        
+        return true;
+    }
+};
+// let obj = {};
+// let proxy  = createProxy(obj);
+// proxy.a = 2;
+// proxy.b = 5;
+// console.log(proxy);
 
 export {
-    returnFirstArgument,
-    sumWithDefaults,
-    returnArgumentsArray,
-    returnFnResult,
-    returnCounter,
-    bindFunction
-}
+    forEach,
+    map,
+    reduce,
+    upperProps,
+    slice,
+    createProxy
+};
+
