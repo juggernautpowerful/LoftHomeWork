@@ -16,19 +16,6 @@ function forEach(array, fn) {
     }
 }
 
-// let sum = 0;
-
-// function sumNumberEach( item, i, arr ) {
-//     sum += item;
-// }
-// let arrayEach = [10, 20, 30];
-// let selfArrayEach = [10, 20, 30];
-
-// arrayEach.forEach( (currentValue, i, ar) => sum += currentValue );
-// forEach(selfArrayEach, sumNumberEach)
-// console.log( sum );
-// console.log( sum );
-
 /*
 Задание 2:
 
@@ -47,14 +34,6 @@ function map(array, fn) {
     return arr;
 }
 
-// function doubleNumberMap( item, i, arr ) {
-//     return item * 2;
-// }
-// let arrayMap = [10, 20, 30];
-// let doubleMap = array.map( currentValue => currentValue * 2 );
-// let selfDoubleMap = map(arrayMap, doubleNumberMap)
-// console.log( doubleMap );
-// console.log( selfDoubleMap );
 /*
 Задание 3:
 
@@ -82,22 +61,6 @@ function reduce(array, fn, initial) {
     return callbackResult;
 }
 
-// let callbackReduce = ( total, currentValue, currentIndex, arr ) => { 
-//     // console.log( total, currentValue, currentIndex, arr ); // значения параметров функции
-//     return total + currentValue; // возвращаем значение, полученное от суммы первого параметра со вторым
-// }
-
-// let arrayReduce = [11,12,13,14,15];
-// let result = arrayReduce.reduce(callbackReduce); // метод только с callback функцией
-// console.log(result);
-// let resultWithInitialValue = arrayReduce.reduce( callbackReduce, 35 ); // метод с callback функцией и первоначальным значением
-// console.log( resultWithInitialValue );
-
-// let selfResult = reduce(arrayReduce, callbackReduce); // метод только с callback функцией
-// console.log(selfResult);
-// let SelfResultWithInitialValue = reduce( arrayReduce, callbackReduce, 35 ); // метод с callback функцией и первоначальным значением
-// console.log( SelfResultWithInitialValue );
-
 /*
 Задание 4:
 
@@ -118,13 +81,6 @@ function upperProps(obj) {
     return arr;
 }
 
-// var menu = {
-//     width: 300,
-//     height: 200,
-//     title: "Menu"
-//   };
-// let resultUpperProps  = upperProps(menu);
-// console.log(resultUpperProps);
 /*
 Задание 5 *:
 
@@ -132,87 +88,26 @@ function upperProps(obj) {
 Посмотрите как работает slice и повторите это поведение для массива, который будет передан в параметре array
 */
 function slice(array, from = 0, to = array.length) {
-    let _from, _to, arr;
-    let index, len;
+    let arr = [];
 
-    arr = [];
-
-    if (array.length < 1) {
-        // console.error('Входной массив пуст');
+    if (array.length < 1 || !isFinite(from) || !isFinite(to)) {
         return [];
     }
 
-    _from = from >= 0? (from) : (_from = (array.length + from) < 0? 0 : array.length + from);
-    _to = to >=0? (to = to > array.length? array.length : to) : (array.length + to);
+    from = (from = from < 0? array.length + from : from) < 0? 0 : from;
+    to = (to = to < 0? array.length + to : to) > array.length? array.length : to;
 
-    if (_from > array.length) {
-        // console.log('Размер 2-го параметрa  (`from`) превышает длину массива');
+    if (from > array.length || from > to) {
         return [];
     }
 
-    if (_from > _to) {
-        // console.error('3-ий параметр  (`to`) не должен находиться в массиве раньше второго');
-        return [];
-    }
-
-    for (index = _from, len = _to; index < len; index++) {
-        arr.push(array[index]);
+    for ( let i = from; i < to; i++) {
+        arr.push(array[i]);
     }
 
     return arr;
 }
 
-// let x = [1, 2, 3, 'a', 'b', 'c'];
-// let a, b, c, d, e, m, n, p;
-
-// a = x.slice(); // значение переменной [1,2,3,a,b,c]
-// b = x.slice(3, 4); // значение переменной ["a"]
-// c = x.slice(2, 5); // значение переменной [3, "a", "b"]
-// d = x.slice(-4, 5); // значение переменной [3, "a", "b"]
-// e = x.slice(-4, -1); // значение переменной [3, "a", "b"]
-// m = x.slice(-1000, 10);
-// n = x.slice(-2);
-// p = x.slice(15);
-// console.log(a);
-// console.log(b);
-// console.log(c);
-// console.log(d);
-// console.log(e);
-
-// let f = "hello"; 
-// let g = [f]; 
-// let h = g.slice(); 
-// console.log(f);
-// console.log(g);
-// console.log(h);
-// console.log(m);
-// console.log(n);
-// console.log(p);
-
-// let aa, bb, cc, dd, ee, mm, nn, pp;
-
-// aa = slice(x); // значение переменной [1,2,3,a,b,c]
-// bb = slice(x, 3, 4); // значение переменной ["a"]
-// cc = slice(x, 2, 5); // значение переменной [3, "a", "b"]
-// dd = slice(x, -4, 5); // значение переменной [3, "a", "b"]
-// ee = slice(x, -4, -1); // значение переменной [3, "a", "b"]
-// console.log(aa);
-// console.log(bb);
-// console.log(cc);
-// console.log(dd);
-// console.log(ee);
-// let ff = "yes"; 
-// let gg = [ff]; 
-// let hh = slice(gg); 
-// console.log(ff);
-// console.log(gg);
-// console.log(hh);
-// mm = slice(x, -1000, 10);
-// nn = slice(x, '-2h');
-// pp = slice(x, 5, 3);
-// console.log(mm);
-// console.log(nn);
-// console.log(pp);
 /*
 Задание 6 *:
 
@@ -230,11 +125,6 @@ let handler = {
         return true;
     }
 };
-// let obj = {};
-// let proxy  = createProxy(obj);
-// proxy.a = 2;
-// proxy.b = 5;
-// console.log(proxy);
 
 export {
     forEach,
