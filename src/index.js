@@ -128,7 +128,6 @@ function calculator() {
     }
     
     return {
-        inNum: number,
         sum(...params) {  
             result = number;
             for (var i = 0; i < params.length; i++) {
