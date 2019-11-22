@@ -9,10 +9,9 @@
  */
 
 function forEach(array, fn) {
-    let index, len;
 
-    for (index = 0, len = array.length; index < len; ++index) {
-        fn(array[index], index, array);
+    for (let i = 0; i < array.length; ++i) {
+        fn(array[i], i, array);
     }
 }
 
@@ -24,11 +23,11 @@ function forEach(array, fn) {
 */
 
 function map(array, fn) {
-    let index, len, arr;
+    let arr;
 
     arr = [];
-    for (index = 0, len = array.length; index < len; index++) {
-        arr[index] = fn(array[index], index, array);
+    for (let i = 0; i < array.length; i++) {
+        arr[i] = fn(array[i], i, array);
     }
     
     return arr;
@@ -42,19 +41,18 @@ function map(array, fn) {
 */
 function reduce(array, fn, initial) {
     let total, currentValue, currentIndex, callbackResult, isInitial;
-    let index, len;
 
     isInitial = initial !== undefined;
-    for (index = 0, len = array.length; index < (isInitial? len : len - 1); index++) {
-        if (index == 0) {
-            total = isInitial? initial : array[index];
-            currentValue = isInitial? array[index] : array[index + 1];
+    for (let i = 0; i < (isInitial? array.length : array.length - 1); i++) {
+        if (i == 0) {
+            total = isInitial? initial : array[i];
+            currentValue = isInitial? array[i] : array[i + 1];
             currentIndex = isInitial? 0 : 1;
 
             callbackResult = fn(total, currentValue, currentIndex, array);
         } else {
-            callbackResult = isInitial? fn(callbackResult, array[index], index, array) 
-                : fn( callbackResult, array[index + 1], index + 1, array);
+            callbackResult = isInitial? fn(callbackResult, array[i], i, array) 
+                : fn( callbackResult, array[i + 1], i + 1, array);
         } 
     }
 
