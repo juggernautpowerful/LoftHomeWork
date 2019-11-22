@@ -131,7 +131,7 @@ function calculator() {
         sum(...params) {  
             result = number;
             for (var i = 0; i < params.length; i++) {
-                result = result + params[i];
+                result += params[i];
             
             }
             
@@ -140,7 +140,7 @@ function calculator() {
         dif(...params) { 
             result = number;
             for (var i = 0; i < params.length; i++) {
-                result = result - params[i];
+                result -= params[i];
             }
             
             return result; 
@@ -151,7 +151,7 @@ function calculator() {
                 if (params[i] == 0) {
                     throw new TypeError('division by 0'); 
                 } 
-                result = result / params[i];
+                result /= params[i];
             }
             
             return result; 
@@ -159,7 +159,7 @@ function calculator() {
         mul(...params) {
             result = number;
             for (var i = 0; i < params.length; i++) {
-                result = result * params[i];
+                result *= params[i];
             }
             
             return result; 
