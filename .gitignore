@@ -8,3 +8,7 @@ out/
 dist/
 node_modules/
 coverage/
+webpack.config.js
+dnd-content.hbs
+*.hbs
+src/dnd.js
