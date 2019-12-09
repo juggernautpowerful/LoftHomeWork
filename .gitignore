@@ -8,3 +8,10 @@ out/
 dist/
 node_modules/
 coverage/
+src/towns.hbs
+src/towns-content.hbs
+src/cookie.hbs
+src/cookie-content.hbs
+towns.hbs
+towns-content.hbs
+.gitignore
