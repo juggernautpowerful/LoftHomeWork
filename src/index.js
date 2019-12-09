@@ -12,8 +12,8 @@
 function delayPromise(seconds) {
     return new Promise((resolve) => {
         setTimeout(() => resolve(), seconds * 1000);
+    })
 }
-
 /*
  Задание 2:
 
@@ -35,9 +35,10 @@ function loadAndSortTowns() {
             })
             .then(towns => {
                 let sortTowns = towns.sort((a, b) => {
-                return a.name > b.name ? 1 : -1;
-            })
-            resolve(sortTowns);
+                    return a.name > b.name ? 1 : -1;
+                })
+
+                resolve(sortTowns);
             })
             .catch((e) => reject(e));
     })
