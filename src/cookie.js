@@ -74,6 +74,7 @@ function getCookies() {
 
 function appendCookie() {
     let cookies = getCookies();
+
     clearTable();
        
     for (let cookie in cookies) {
