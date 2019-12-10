@@ -74,19 +74,14 @@ function getCookies() {
 
 function appendCookie() {
     let cookies = getCookies();
-
-    if (filterNameInput.value === '') {
-        allCookies();
-    } else if (filterNameInput.value !== '') {
-        clearTable();
+    clearTable();
        
-        for (let cookie in cookies) {
-            if ({}.hasOwnProperty.call(cookies, cookie)) {
-                if (isMatching(cookie, filterNameInput.value) || isMatching(cookies[cookie], filterNameInput.value)) { 
-                    listTable.appendChild(createRowCookie(cookie, cookies[cookie])); 
-                } 
+    for (let cookie in cookies) {
+        if ({}.hasOwnProperty.call(cookies, cookie)) {
+            if (isMatching(cookie, filterNameInput.value) || isMatching(cookies[cookie], filterNameInput.value)) { 
+                listTable.appendChild(createRowCookie(cookie, cookies[cookie])); 
             } 
-        }
+        } 
     }
 }
 
@@ -109,13 +104,3 @@ function isMatching(search, chunk) {
     return search.toUpperCase().includes(chunk.toUpperCase());
 }
 
-function allCookies() {
-    clearTable();
-    let cookies = getCookies();
-
-    for (let cookie in cookies) {
-        if ({}.hasOwnProperty.call(cookies, cookie)) {
-            listTable.appendChild(createRowCookie(cookie, cookies[cookie]));
-        }
-    }
-}
