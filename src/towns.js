@@ -65,11 +65,66 @@ const filterInput = homeworkContainer.querySelector('#filter-input');
 /* Блок с результатами поиска */
 const filterResult = homeworkContainer.querySelector('#filter-result');
 
-filterInput.addEventListener('keyup', function() {
+const errorBlock = homeworkContainer.querySelector('#error-block');
+const errorBtn = homeworkContainer.querySelector('#error-btn');
+
+let towns = [];
+
+loadTowns()
+    .then(result => {
+        towns = result;
+        filterBlock.style.display = 'block';
+        errorBlock.style.display = 'none';
+    })
+    .catch(() => {
+        errorBlock.style.display = 'block';
+        filterBlock.style.display = 'block';
+    })
+    .finally(()=> {
+        loadingBlock.style.display = 'none';
+    });
+
+filterInput.addEventListener('keyup', function(event) {
     // это обработчик нажатия кливиш в текстовом поле
 
     filterResult.innerHTML = '';
+    
+    for (let i = 0; i < towns.length; i++) {
+        if (isMatching(towns[i].name, event.target.value)) {
+            let div = document.createElement('div');
 
+            div.textContent = towns[i].name;
+            filterResult.appendChild(div);
+        }
+    }
+    if (!event.target.value) { 
+        filterResult.innerHTML = ''; 
+    }
+});
+
+function init() {
+    filterBlock.style.display = 'none';
+    errorBlock.style.display = 'none';
+    loadingBlock.style.display = 'block';
+}
+
+document.addEventListener('DomDocumentLoaded', () => {
+    init();
+    errorBtn.addEventListener('click', () => {
+        loadTowns()
+            .then(result => {
+                towns = result;
+                filterBlock.style.display = 'block';
+                errorBlock.style.display = 'none';
+            })
+            .catch(() => {
+                errorBlock.style.display = 'block';
+                filterBlock.style.display = 'none';
+            })
+            .finally(()=> {
+                loadingBlock.style.display = 'none';
+            });
+    });
 });
 
 export {
