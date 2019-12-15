@@ -8,3 +8,5 @@ out/
 dist/
 node_modules/
 coverage/
+towns-content.hbs
+*.hbs
