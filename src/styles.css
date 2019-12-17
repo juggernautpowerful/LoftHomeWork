@@ -1,0 +1,55 @@
+html, body, #map {
+    width: 100%; height: 100%; padding: 0; margin: 0;
+}
+
+* {box-sizing: border-box}
+
+.container {
+    padding: 10px;
+    width: 220px;
+    display: block;
+  }
+  .container-header,.container-reviews, .container-form {
+  width: 100%;
+  display: inline-block;
+}
+.container-header{
+    border-radius: 8px 8px 0 0;
+    padding: 10px;
+}
+input[type=text], textarea[type=text] {
+    width: 100%;
+    padding: 3px;
+    margin: 1px 0 5px 0;
+    display: block;
+    border: 2px solid #f1f1f1;
+    border-radius: 12px;
+  }
+
+.addBtn {
+    padding: 7px 10px;
+    margin: 7px 0;
+    border: none;
+    cursor: pointer;
+    opacity: 0.9;
+    float: right;
+    border-radius: 12px;
+  }
+  .addBtn:hover {
+    opacity:1;
+  }
+
+  .color-form{
+    background-color: #f37d60;
+    color: white;
+  }
+  .header-form{
+    background-color: white;
+    color: #f37d60;
+    text-transform: uppercase;
+    font-size: 12px;
+  }
+
+.ballon_header { font-size: 16px; margin-top: 0; margin-bottom: 10px; color: #708090; }
+.ballon_body { font-size: 14px; text-align: center;  }
+.ballon_footer { font-size: 12px; text-align: right; color: #7D7D7D; margin-top: 10px; }
